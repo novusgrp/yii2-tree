@@ -1,6 +1,6 @@
-Yii2 Tree Extension
-===================
-Yii2 Tree Extension
+yii2-fancytree-widget
+=====================
+The yii2-fancytree-widget is a Yii 2 wrapper for the [Fancytree](http://wwwendt.de/tech/fancytree/demo/). A JavaScript dynamic tree view plugin for jQuery with support for persistence, keyboard, checkboxes, tables, drag'n'drop, and lazy loading.
 
 Installation
 ------------
@@ -22,10 +22,43 @@ or add
 to the require section of your `composer.json` file.
 
 
-Usage
------
+How to use
+----------
 
-Once the extension is installed, simply use it in your code by  :
+On your view file.
 
 ```php
-<?= \novusgrp\AutoloadExample::widget(); ?>```
+
+<?php
+// Example of data.
+$data = [
+	['title' => 'Node 1', 'key' => 1],
+	['title' => 'Folder 2', 'key' => '2', 'folder' => true, 'children' => [
+		['title' => 'Node 2.1', 'key' => '3'],
+		['title' => 'Node 2.2', 'key' => '4']
+	]]
+];
+
+echo \novusgrp\tree\TreeWidget::widget([
+	'options' =>[
+		'source' => $data,
+		'extensions' => ['dnd'],
+		'dnd' => [
+			'preventVoidMoves' => true,
+			'preventRecursiveMoves' => true,
+			'autoExpandMS' => 400,
+			'dragStart' => new JsExpression('function(node, data) {
+				return true;
+			}'),
+			'dragEnter' => new JsExpression('function(node, data) {
+				return true;
+			}'),
+			'dragDrop' => new JsExpression('function(node, data) {
+				data.otherNode.moveTo(node, data.hitMode);
+			}'),
+		],
+	]
+]);
+?>
+
+```
