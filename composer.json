@@ -1,0 +1,21 @@
+{
+    "name": "novusgrp/yii2-tree",
+    "description": "Yii2 Tree Extension",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension"],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "armand@novusgroup.co.za",
+            "email": "armand@novusgroup.co.za"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "novusgrp\\": ""
+        }
+    }
+}
