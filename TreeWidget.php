@@ -9,6 +9,7 @@ namespace novusgrp;
 
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\helpers\Url;
 
 /**
  * The yii2-tree is a Yii 2 wrapper for the fancytree.js
@@ -23,7 +24,8 @@ class TreeWidget extends \yii\base\Widget {
      */
     public $options = [];
     public $model;
-    public $modelname;
+    public $modelclass;
+    public $controller;
     public $editable = false;
     public $onclick = '';
     public $keyfield = 'id';
@@ -41,7 +43,7 @@ class TreeWidget extends \yii\base\Widget {
      * Registers the needed assets
      */
     public function registerAssets() {
-        $this->modelname = $this->modelname;
+        $this->modelclass = $this->modelclass;
 
         $source = empty($this->model) ? [] : $this->buildSource($this->model);
         $keys = [
@@ -79,6 +81,20 @@ class TreeWidget extends \yii\base\Widget {
 
 
         $view->registerJs('$("#' . $id . '").fancytree( ' . $options . ')');
+        $url = Url::to([$this->controller.'/tree']);
+        $view->registerCss('.fancytree-edit-input{color: black;}');
+        $view->registerCss('.fancytree-edit-input.input{width: 500px;}');
+        $view->registerJs('function updateTree(action,data){
+            var message = false;
+             return $.ajax({
+                  type: "POST",
+                  async: false,
+                  url: "'.$url.'",
+                  data: {action: action, data: data},
+                  success: function(msg){ 
+                  },
+                }).status;
+          }');
     }
 
     private function buildSource($model) {
@@ -92,8 +108,8 @@ class TreeWidget extends \yii\base\Widget {
             $data['key'] = $item->{$this->keyfield};
             $data['title'] = $item->{$this->titlefield};
             $data['expanded'] = true;
-            $querymodel = $this->modelname . 'Query';
-            $query = new $querymodel($this->modelname);
+            $querymodel = $this->modelclass . 'Query';
+            $query = new $querymodel($this->modelclass);
             $children = $query->where(['parent_id' => $item->id])->all();
             if ($children != NULL) {
                 $data['children'] = $this->buildSource($children);
