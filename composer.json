@@ -13,7 +13,8 @@
     "require": {
         "yiisoft/yii2": "~2.0.0",
         "yiisoft/yii2-jui": "*",
-        "bower-asset/fancytree": ">=2.12"
+        "bower-asset/fancytree": ">=2.12",
+        "npm-asset/jquery-contextmenu": "^2.9"
     },
     "autoload": {
         "psr-4": {

@@ -14,7 +14,7 @@ namespace novusgrp;
  */
 class TreeAsset extends \yii\web\AssetBundle {
 
-    public $sourcePath = '@bower/fancytree';
+    public $sourcePath = '@vendor';
     public $skin = 'dist/skin-lion/ui.fancytree';
 
     /**
@@ -48,8 +48,9 @@ class TreeAsset extends \yii\web\AssetBundle {
      * @inheritdoc
      */
     public function init() {
-        $this->setupAssets('css', [$this->skin]);
-        $this->setupAssets('js', ['dist/jquery.fancytree-all']);
+        $this->setupAssets('js', ['npm-asset/jquery-contextmenu/dist/jquery.contextMenu', 'bower-asset/fancytree/dist/jquery.fancytree-all']);
+        $this->setupAssets('css', ['npm-asset/jquery-contextmenu/dist/jquery.contextMenu', 'bower-asset/fancytree/'.$this->skin]);
+        
         parent::init();
     }
 
