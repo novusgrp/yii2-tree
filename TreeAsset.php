@@ -50,8 +50,6 @@ class TreeAsset extends \yii\web\AssetBundle {
     public function init() {
         $this->setupAssets('css', [$this->skin]);
         $this->setupAssets('js', ['dist/jquery.fancytree-all']);
-        $this->setupAssets('js', ['@nmp-asset/jquery-contextmenu/dist/jquery.contextMenu']);
-        $this->setupAssets('css', ['@nmp-asset/jquery-contextmenu/dist/jquery.contextMenu']);
         parent::init();
     }
 
