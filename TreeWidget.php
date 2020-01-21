@@ -66,11 +66,7 @@ class TreeWidget extends \yii\base\Widget {
         $options = Json::encode($this->options);
 
         if ($this->editable) {
-            $this->options['activate'] = new \yii\web\JsExpression('function(event, data){
-            ' . $this->onclick . '(data.node.data);
-        }');
-
-            echo $view->renderFile('@vendor/novusgrp/yii2-tree/views/controls.php');
+            $this->options['activate'] = new \yii\web\JsExpression('function(event, data){ ' . $this->onclick . '(data.node.data);}');
         } else {
             $this->options['activate'] = new \yii\web\JsExpression('function(event, data){ ' . $this->onclick . '(data.node.data); }');
         }
@@ -82,7 +78,7 @@ class TreeWidget extends \yii\base\Widget {
 
 
         $view->registerJs('$("#' . $id . '").fancytree( ' . $options . ')');
-        $url = Url::to([$this->controller.'/tree']);
+        $url = Url::to([$this->controller . '/tree']);
         $view->registerCss('.fancytree-edit-input{color: black;}');
         $view->registerCss('.fancytree-edit-input.input{width: 500px;}');
         $view->registerJs('function updateTree(action,data){
@@ -90,7 +86,7 @@ class TreeWidget extends \yii\base\Widget {
              return $.ajax({
                   type: "POST",
                   async: false,
-                  url: "'.$url.'",
+                  url: "' . $url . '",
                   data: {action: action, data: data},
                   success: function(msg){ 
                   },
@@ -109,7 +105,7 @@ class TreeWidget extends \yii\base\Widget {
             $data['key'] = $item->{$this->keyfield};
             $data['title'] = $item->{$this->titlefield};
             $data['expanded'] = true;
-            $data['folder'] = (($item->{$this->typefield} == 1)? true : false);
+            $data['folder'] = (($item->{$this->typefield} == 1) ? true : false);
             $querymodel = $this->modelclass . 'Query';
             $query = new $querymodel($this->modelclass);
             $children = $query->where(['parent_id' => $item->id])->all();
