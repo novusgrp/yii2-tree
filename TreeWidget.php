@@ -29,7 +29,8 @@ class TreeWidget extends \yii\base\Widget {
     public $editable = false;
     public $onclick = '';
     public $keyfield = 'id';
-    public $titlefield = 'id';
+    public $titlefield = 'name';
+    public $typefield = 'type_id';
 
     /**
      * @inheritdoc
@@ -93,7 +94,7 @@ class TreeWidget extends \yii\base\Widget {
                   data: {action: action, data: data},
                   success: function(msg){ 
                   },
-                }).status;
+                });
           }');
     }
 
@@ -108,6 +109,7 @@ class TreeWidget extends \yii\base\Widget {
             $data['key'] = $item->{$this->keyfield};
             $data['title'] = $item->{$this->titlefield};
             $data['expanded'] = true;
+            $data['folder'] = (($item->{$this->typefield} == 1)? true : false);
             $querymodel = $this->modelclass . 'Query';
             $query = new $querymodel($this->modelclass);
             $children = $query->where(['parent_id' => $item->id])->all();
