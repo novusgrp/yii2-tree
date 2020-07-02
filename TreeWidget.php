@@ -99,6 +99,7 @@ class TreeWidget extends \yii\base\Widget {
             $items[] = $item;
         }
         $model = $items;
+        $source = [];
         foreach ($model as $item) {
             $data = $this->buildAttributes($item);
 
