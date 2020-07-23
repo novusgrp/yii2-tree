@@ -68,7 +68,7 @@ class TreeWidget extends \yii\base\Widget {
         if ($this->editable) {
             $this->options['activate'] = new \yii\web\JsExpression('function(event, data){ ' . $this->onclick . '(data.node.data);}');
         } else {
-            $this->options['activate'] = new \yii\web\JsExpression('function(event, data){ ' . $this->onclick . '(data.node.data); }');
+            $this->options['activate'] = new \yii\web\JsExpression('function(event, data){ ' . $this->onclick . '(data.node.data); console.log(data.node.data);}');
         }
         $this->options['expanded'] = true;
 
@@ -98,6 +98,7 @@ class TreeWidget extends \yii\base\Widget {
         foreach ($model as $item) {
             $items[] = $item;
         }
+
         $model = $items;
         $source = [];
         foreach ($model as $item) {
