@@ -22,10 +22,10 @@ class TreeAsset extends \yii\web\AssetBundle {
      */
     public $depends = [
         'yii\web\JqueryAsset',
+        'yii\bootstrap\BootstrapAsset',
         'yii\jui\JuiAsset',
-        'yii\bootstrap\BootstrapAsset'
     ];
-    
+
 
     /**
      * Set up CSS and JS asset arrays based on the base-file names
@@ -48,9 +48,9 @@ class TreeAsset extends \yii\web\AssetBundle {
      * @inheritdoc
      */
     public function init() {
-        $this->setupAssets('js', ['npm-asset/jquery-contextmenu/dist/jquery.contextMenu', 'bower-asset/fancytree/dist/jquery.fancytree-all']);
+        $this->setupAssets('js', ['npm-asset/jquery-contextmenu/dist/jquery.contextMenu', 'bower-asset/fancytree/dist/jquery.fancytree-all', 'bower-asset/jquery-ui']);
         $this->setupAssets('css', ['npm-asset/jquery-contextmenu/dist/jquery.contextMenu', 'bower-asset/fancytree/'.$this->skin]);
-        
+
         parent::init();
     }
 
